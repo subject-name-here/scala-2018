@@ -8,6 +8,10 @@ class EvaluateTest {
     assertEquals(3, Main.evaluate("3"))
   }
 
+  @Test def testNegativeNumber(): Unit = {
+    assertEquals(-3, Main.evaluate("-3"))
+  }
+
   @Test def testSimpleExpr1(): Unit = {
     assertEquals(5, Main.evaluate("2 + 3"))
   }
@@ -55,6 +59,10 @@ class EvaluateTest {
 
   @Test def testPriority3(): Unit = {
     assertEquals(0, Main.evaluate("3 + 2 >= 17"))
+  }
+
+  @Test def testPriority4(): Unit = {
+    assertEquals(0, Main.evaluate("5 - 3 - 2"))
   }
 
   @Test def testPriorityParentheses1(): Unit = {

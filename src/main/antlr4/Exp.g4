@@ -1,56 +1,56 @@
 grammar Exp;
 
 
-eval returns [int value]
-    :    exp=orExp {$value = $exp.value;}
+eval
+    :    exp=orExp EOF
     ;
 
-orExp returns [int value]
-    :    m1=andExp        {$value = $m1.value;}
-         ( '||' m2=andExp {$value = ($value == 0) ? ($m2.value == 0 ? 0 : 1) : 1;}
+orExp
+    :    m1=andExp
+         ( '||' m2=andExp
          )*
     ;
 
-andExp returns [int value]
-    :    m1=equalExp        {$value = $m1.value;}
-         ( '&&' m2=equalExp {$value = ($value == 0) ? 0 : ($m2.value == 0 ? 0 : 1);}
+andExp
+    :    m1=equalExp
+         ( '&&' m2=equalExp
          )*
     ;
 
-equalExp returns [int value]
-    :    m1=greaterLessExp        {$value = $m1.value;}
-         ( '==' m2=greaterLessExp {$value = $value == $m2.value ? 1 : 0;}
-         | '!=' m2=greaterLessExp {$value = $value != $m2.value ? 1 : 0;}
+equalExp
+    :    m1=greaterLessExp
+         ( '==' m2=greaterLessExp
+         | '!=' m2=greaterLessExp
          )*
     ;
 
-greaterLessExp returns [int value]
-    :    m1=additionExp        {$value = $m1.value;}
-         ( '>' m2=additionExp  {$value = $value > $m2.value ? 1 : 0;}
-         | '<' m2=additionExp  {$value = $value < $m2.value ? 1 : 0;}
-         | '>=' m2=additionExp {$value = $value >= $m2.value ? 1 : 0;}
-         | '<=' m2=additionExp {$value = $value <= $m2.value ? 1 : 0;}
+greaterLessExp
+    :    m1=additionExp
+         ( '>' m2=additionExp
+         | '<' m2=additionExp
+         | '>=' m2=additionExp
+         | '<=' m2=additionExp
          )*
     ;
 
-additionExp returns [int value]
-    :    m1=multiplyExp       {$value = $m1.value;}
-         ( '+' m2=multiplyExp {$value += $m2.value;}
-         | '-' m2=multiplyExp {$value -= $m2.value;}
+additionExp
+    :    m1=multiplyExp
+         ( '+' m2=multiplyExp
+         | '-' m2=multiplyExp
          )*
     ;
 
-multiplyExp returns [int value]
-    :    m1=atomExp       {$value = $m1.value;}
-         ( '*' m2=atomExp {$value *= $m2.value;}
-         | '/' m2=atomExp {$value /= $m2.value;}
-         | '%' m2=atomExp {$value %= $m2.value;}
+multiplyExp
+    :    m1=atomExp
+         ( '*' m2=atomExp
+         | '/' m2=atomExp
+         | '%' m2=atomExp
          )*
     ;
 
-atomExp returns [int value]
-    :    n=Number          {$value = Integer.parseInt($n.text);}
-    |    '(' exp=orExp ')' {$value = $exp.value;}
+atomExp
+    :    n=Number
+    |    '(' exp=orExp ')'
     ;
 
 
