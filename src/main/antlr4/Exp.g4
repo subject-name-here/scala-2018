@@ -41,10 +41,10 @@ additionExp returns [int value]
     ;
 
 multiplyExp returns [int value]
-    :    a1=atomExp       {$value = $a1.value;}
-         ( '*' a2=atomExp {$value *= $a2.value;}
-         | '/' a2=atomExp {$value /= $a2.value;}
-         | '%' a2=atomExp {$value %= $a2.value;}
+    :    m1=atomExp       {$value = $m1.value;}
+         ( '*' m2=atomExp {$value *= $m2.value;}
+         | '/' m2=atomExp {$value /= $m2.value;}
+         | '%' m2=atomExp {$value %= $m2.value;}
          )*
     ;
 
