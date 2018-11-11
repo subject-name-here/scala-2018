@@ -35,7 +35,7 @@ object Main {
 
   def main(args: Array[String]): Unit = {
     println("Enter expression: ")
-    val expression = "2 + 3"//scala.io.StdIn.readLine()
+    val expression = scala.io.StdIn.readLine()
     try {
       println(evaluate(expression))
     } catch {
