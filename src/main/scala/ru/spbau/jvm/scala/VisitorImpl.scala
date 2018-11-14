@@ -1,7 +1,7 @@
 package ru.spbau.jvm.scala
 
 import ExpParser._
-import org.antlr.v4.runtime.ParserRuleContext
+import org.antlr.v4.runtime.{ParserRuleContext, Token}
 import org.antlr.v4.runtime.tree.ParseTree
 
 import scala.collection.JavaConverters._
@@ -62,25 +62,25 @@ class VisitorImpl extends ExpBaseVisitor[Int] {
     val initialValue = contextVisitor(expressionParts.firstOperand)
     expressionParts.tail.foldLeft(initialValue)((accumulator: Int, expressionPart: (ParseTree, S)) => {
       val (operator, operand) = expressionPart
-      useOperator(accumulator, operator.getText, contextVisitor(operand))
+      useOperatorToken(accumulator, operator.getPayload.asInstanceOf[Token], contextVisitor(operand))
     })
   }
   
-  private def useOperator(leftOperand: Int, operator: String, rightOperand: Int): Int = operator match {
-    case "||" => boolToInt(leftOperand != 0 || rightOperand != 0)
-    case "&&" => boolToInt(leftOperand != 0 && rightOperand != 0)
-    case "==" => boolToInt(leftOperand == rightOperand)
-    case "!=" => boolToInt(leftOperand != rightOperand)
-    case ">"  => boolToInt(leftOperand > rightOperand)
-    case ">=" => boolToInt(leftOperand >= rightOperand)
-    case "<=" => boolToInt(leftOperand <= rightOperand)
-    case "<"  => boolToInt(leftOperand < rightOperand)
-    case "*"  => leftOperand * rightOperand
-    case "/"  => leftOperand / rightOperand
-    case "%"  => leftOperand % rightOperand
-    case "+"  => leftOperand + rightOperand
-    case "-"  => leftOperand - rightOperand
-    case _    => leftOperand
+  private def useOperatorToken(leftOperand: Int, operator: Token, rightOperand: Int): Int = operator.getType match {
+    case OR => boolToInt(leftOperand != 0 || rightOperand != 0)
+    case AND => boolToInt(leftOperand != 0 && rightOperand != 0)
+    case EQUAL => boolToInt(leftOperand == rightOperand)
+    case NOT_EQUAL => boolToInt(leftOperand != rightOperand)
+    case GREATER => boolToInt(leftOperand > rightOperand)
+    case GREATER_EQUAL => boolToInt(leftOperand >= rightOperand)
+    case LESS_EQUAL => boolToInt(leftOperand <= rightOperand)
+    case LESS => boolToInt(leftOperand < rightOperand)
+    case MULTIPLY => leftOperand * rightOperand
+    case DIVIDE => leftOperand / rightOperand
+    case MOD => leftOperand % rightOperand
+    case PLUS => leftOperand + rightOperand
+    case MINUS => leftOperand - rightOperand
+    case _ => leftOperand
   }
 
   private def boolToInt(b: Boolean) = if (b) 1 else 0

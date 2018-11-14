@@ -17,9 +17,9 @@ public class ExpParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, Number=16, 
-		WS=17;
+		T__0=1, T__1=2, Number=3, WS=4, PLUS=5, MINUS=6, MULTIPLY=7, DIVIDE=8, 
+		MOD=9, LESS=10, LESS_EQUAL=11, GREATER_EQUAL=12, GREATER=13, EQUAL=14, 
+		NOT_EQUAL=15, AND=16, OR=17;
 	public static final int
 		RULE_eval = 0, RULE_orExp = 1, RULE_andExp = 2, RULE_equalExp = 3, RULE_greaterLessExp = 4, 
 		RULE_additionExp = 5, RULE_multiplyExp = 6, RULE_atomExp = 7;
@@ -29,12 +29,13 @@ public class ExpParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'||'", "'&&'", "'=='", "'!='", "'>'", "'<'", "'>='", "'<='", "'+'", 
-		"'-'", "'*'", "'/'", "'%'", "'('", "')'"
+		null, "'('", "')'", null, null, "'+'", "'-'", "'*'", "'/'", "'%'", "'<'", 
+		"'<='", "'>='", "'>'", "'=='", "'!='", "'&&'", "'||'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, null, null, null, null, null, null, null, 
-		null, null, null, null, "Number", "WS"
+		null, null, null, "Number", "WS", "PLUS", "MINUS", "MULTIPLY", "DIVIDE", 
+		"MOD", "LESS", "LESS_EQUAL", "GREATER_EQUAL", "GREATER", "EQUAL", "NOT_EQUAL", 
+		"AND", "OR"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -173,11 +174,11 @@ public class ExpParser extends Parser {
 			setState(24);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__0) {
+			while (_la==OR) {
 				{
 				{
 				setState(20);
-				match(T__0);
+				match(OR);
 				setState(21);
 				((OrExpContext)_localctx).m2 = andExp();
 				}
@@ -239,11 +240,11 @@ public class ExpParser extends Parser {
 			setState(32);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__1) {
+			while (_la==AND) {
 				{
 				{
 				setState(28);
-				match(T__1);
+				match(AND);
 				setState(29);
 				((AndExpContext)_localctx).m2 = equalExp();
 				}
@@ -305,23 +306,23 @@ public class ExpParser extends Parser {
 			setState(42);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__2 || _la==T__3) {
+			while (_la==EQUAL || _la==NOT_EQUAL) {
 				{
 				setState(40);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
-				case T__2:
+				case EQUAL:
 					{
 					setState(36);
-					match(T__2);
+					match(EQUAL);
 					setState(37);
 					((EqualExpContext)_localctx).m2 = greaterLessExp();
 					}
 					break;
-				case T__3:
+				case NOT_EQUAL:
 					{
 					setState(38);
-					match(T__3);
+					match(NOT_EQUAL);
 					setState(39);
 					((EqualExpContext)_localctx).m2 = greaterLessExp();
 					}
@@ -387,39 +388,39 @@ public class ExpParser extends Parser {
 			setState(56);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LESS) | (1L << LESS_EQUAL) | (1L << GREATER_EQUAL) | (1L << GREATER))) != 0)) {
 				{
 				setState(54);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
-				case T__4:
+				case GREATER:
 					{
 					setState(46);
-					match(T__4);
+					match(GREATER);
 					setState(47);
 					((GreaterLessExpContext)_localctx).m2 = additionExp();
 					}
 					break;
-				case T__5:
+				case LESS:
 					{
 					setState(48);
-					match(T__5);
+					match(LESS);
 					setState(49);
 					((GreaterLessExpContext)_localctx).m2 = additionExp();
 					}
 					break;
-				case T__6:
+				case GREATER_EQUAL:
 					{
 					setState(50);
-					match(T__6);
+					match(GREATER_EQUAL);
 					setState(51);
 					((GreaterLessExpContext)_localctx).m2 = additionExp();
 					}
 					break;
-				case T__7:
+				case LESS_EQUAL:
 					{
 					setState(52);
-					match(T__7);
+					match(LESS_EQUAL);
 					setState(53);
 					((GreaterLessExpContext)_localctx).m2 = additionExp();
 					}
@@ -485,23 +486,23 @@ public class ExpParser extends Parser {
 			setState(66);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__8 || _la==T__9) {
+			while (_la==PLUS || _la==MINUS) {
 				{
 				setState(64);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
-				case T__8:
+				case PLUS:
 					{
 					setState(60);
-					match(T__8);
+					match(PLUS);
 					setState(61);
 					((AdditionExpContext)_localctx).m2 = multiplyExp();
 					}
 					break;
-				case T__9:
+				case MINUS:
 					{
 					setState(62);
-					match(T__9);
+					match(MINUS);
 					setState(63);
 					((AdditionExpContext)_localctx).m2 = multiplyExp();
 					}
@@ -567,31 +568,31 @@ public class ExpParser extends Parser {
 			setState(78);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__10) | (1L << T__11) | (1L << T__12))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MULTIPLY) | (1L << DIVIDE) | (1L << MOD))) != 0)) {
 				{
 				setState(76);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
-				case T__10:
+				case MULTIPLY:
 					{
 					setState(70);
-					match(T__10);
+					match(MULTIPLY);
 					setState(71);
 					((MultiplyExpContext)_localctx).m2 = atomExp();
 					}
 					break;
-				case T__11:
+				case DIVIDE:
 					{
 					setState(72);
-					match(T__11);
+					match(DIVIDE);
 					setState(73);
 					((MultiplyExpContext)_localctx).m2 = atomExp();
 					}
 					break;
-				case T__12:
+				case MOD:
 					{
 					setState(74);
-					match(T__12);
+					match(MOD);
 					setState(75);
 					((MultiplyExpContext)_localctx).m2 = atomExp();
 					}
@@ -657,15 +658,15 @@ public class ExpParser extends Parser {
 				((AtomExpContext)_localctx).n = match(Number);
 				}
 				break;
-			case T__13:
+			case T__0:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(82);
-				match(T__13);
+				match(T__0);
 				setState(83);
 				((AtomExpContext)_localctx).exp = orExp();
 				setState(84);
-				match(T__14);
+				match(T__1);
 				}
 				break;
 			default:
@@ -693,19 +694,19 @@ public class ExpParser extends Parser {
 		"\3\t\3\t\5\tY\n\t\3\t\2\2\n\2\4\6\b\n\f\16\20\2\2\2`\2\22\3\2\2\2\4\25"+
 		"\3\2\2\2\6\35\3\2\2\2\b%\3\2\2\2\n/\3\2\2\2\f=\3\2\2\2\16G\3\2\2\2\20"+
 		"X\3\2\2\2\22\23\5\4\3\2\23\24\7\2\2\3\24\3\3\2\2\2\25\32\5\6\4\2\26\27"+
-		"\7\3\2\2\27\31\5\6\4\2\30\26\3\2\2\2\31\34\3\2\2\2\32\30\3\2\2\2\32\33"+
-		"\3\2\2\2\33\5\3\2\2\2\34\32\3\2\2\2\35\"\5\b\5\2\36\37\7\4\2\2\37!\5\b"+
-		"\5\2 \36\3\2\2\2!$\3\2\2\2\" \3\2\2\2\"#\3\2\2\2#\7\3\2\2\2$\"\3\2\2\2"+
-		"%,\5\n\6\2&\'\7\5\2\2\'+\5\n\6\2()\7\6\2\2)+\5\n\6\2*&\3\2\2\2*(\3\2\2"+
-		"\2+.\3\2\2\2,*\3\2\2\2,-\3\2\2\2-\t\3\2\2\2.,\3\2\2\2/:\5\f\7\2\60\61"+
-		"\7\7\2\2\619\5\f\7\2\62\63\7\b\2\2\639\5\f\7\2\64\65\7\t\2\2\659\5\f\7"+
-		"\2\66\67\7\n\2\2\679\5\f\7\28\60\3\2\2\28\62\3\2\2\28\64\3\2\2\28\66\3"+
-		"\2\2\29<\3\2\2\2:8\3\2\2\2:;\3\2\2\2;\13\3\2\2\2<:\3\2\2\2=D\5\16\b\2"+
-		">?\7\13\2\2?C\5\16\b\2@A\7\f\2\2AC\5\16\b\2B>\3\2\2\2B@\3\2\2\2CF\3\2"+
-		"\2\2DB\3\2\2\2DE\3\2\2\2E\r\3\2\2\2FD\3\2\2\2GP\5\20\t\2HI\7\r\2\2IO\5"+
-		"\20\t\2JK\7\16\2\2KO\5\20\t\2LM\7\17\2\2MO\5\20\t\2NH\3\2\2\2NJ\3\2\2"+
-		"\2NL\3\2\2\2OR\3\2\2\2PN\3\2\2\2PQ\3\2\2\2Q\17\3\2\2\2RP\3\2\2\2SY\7\22"+
-		"\2\2TU\7\20\2\2UV\5\4\3\2VW\7\21\2\2WY\3\2\2\2XS\3\2\2\2XT\3\2\2\2Y\21"+
+		"\7\23\2\2\27\31\5\6\4\2\30\26\3\2\2\2\31\34\3\2\2\2\32\30\3\2\2\2\32\33"+
+		"\3\2\2\2\33\5\3\2\2\2\34\32\3\2\2\2\35\"\5\b\5\2\36\37\7\22\2\2\37!\5"+
+		"\b\5\2 \36\3\2\2\2!$\3\2\2\2\" \3\2\2\2\"#\3\2\2\2#\7\3\2\2\2$\"\3\2\2"+
+		"\2%,\5\n\6\2&\'\7\20\2\2\'+\5\n\6\2()\7\21\2\2)+\5\n\6\2*&\3\2\2\2*(\3"+
+		"\2\2\2+.\3\2\2\2,*\3\2\2\2,-\3\2\2\2-\t\3\2\2\2.,\3\2\2\2/:\5\f\7\2\60"+
+		"\61\7\17\2\2\619\5\f\7\2\62\63\7\f\2\2\639\5\f\7\2\64\65\7\16\2\2\659"+
+		"\5\f\7\2\66\67\7\r\2\2\679\5\f\7\28\60\3\2\2\28\62\3\2\2\28\64\3\2\2\2"+
+		"8\66\3\2\2\29<\3\2\2\2:8\3\2\2\2:;\3\2\2\2;\13\3\2\2\2<:\3\2\2\2=D\5\16"+
+		"\b\2>?\7\7\2\2?C\5\16\b\2@A\7\b\2\2AC\5\16\b\2B>\3\2\2\2B@\3\2\2\2CF\3"+
+		"\2\2\2DB\3\2\2\2DE\3\2\2\2E\r\3\2\2\2FD\3\2\2\2GP\5\20\t\2HI\7\t\2\2I"+
+		"O\5\20\t\2JK\7\n\2\2KO\5\20\t\2LM\7\13\2\2MO\5\20\t\2NH\3\2\2\2NJ\3\2"+
+		"\2\2NL\3\2\2\2OR\3\2\2\2PN\3\2\2\2PQ\3\2\2\2Q\17\3\2\2\2RP\3\2\2\2SY\7"+
+		"\5\2\2TU\7\3\2\2UV\5\4\3\2VW\7\4\2\2WY\3\2\2\2XS\3\2\2\2XT\3\2\2\2Y\21"+
 		"\3\2\2\2\r\32\"*,8:BDNPX";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());

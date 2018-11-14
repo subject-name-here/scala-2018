@@ -60,3 +60,17 @@ Number
     ;
 
 WS : (' ' | '\t' | '\r'| '\n') -> skip;
+
+PLUS : '+';
+MINUS : '-';
+MULTIPLY : '*';
+DIVIDE : '/';
+MOD : '%';
+LESS : '<';
+LESS_EQUAL : '<=';
+GREATER_EQUAL : '>=';
+GREATER : '>';
+EQUAL : '==';
+NOT_EQUAL : '!=';
+AND : '&&';
+OR : '||';
